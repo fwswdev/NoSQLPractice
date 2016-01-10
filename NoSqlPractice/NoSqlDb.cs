@@ -116,5 +116,22 @@ namespace NoSqlPractice
 
         }
 
+
+        public int DeleteRecord()
+        {
+            FileDb _db = new FileDb();
+            _db.Open(DBFILE, false);
+            // the easy way, using the expression parser
+            //        FilterExpressionGroup srchExpGrp = FilterExpressionGroup.Parse
+            //("(FirstName ~= 'andrew' OR FirstName ~= 'nancy') AND LastName = 'Fuller'");
+            FilterExpressionGroup srchExpGrp = FilterExpressionGroup.Parse
+    ("FirstName = 'Nancy'");
+
+            var ret = _db.DeleteRecords(srchExpGrp);
+            _db.Dispose();
+            return ret;
+
+        }
+
     }
 }

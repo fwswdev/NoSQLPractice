@@ -1,6 +1,7 @@
 ﻿using FileDbNs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,10 @@ namespace NoSqlPractice
             NoSqlDb nosqldb = new NoSqlDb();
             nosqldb.CreateDb();
             var table = nosqldb.ReadRecord();
+            Debug.Assert(table.Count == 0);
             nosqldb.AddRecords();
             table = nosqldb.ReadRecord();
+            Debug.Assert(table.Count != 0);
 
 
             var query =
@@ -32,6 +35,12 @@ namespace NoSqlPractice
                 IsCitizen = custRec["IsCitizen"]
             };
 
+
+
+            var d = nosqldb.DeleteRecord();
+
+            table = nosqldb.ReadRecord();
+            Debug.Assert(table.Count == 0);
         }
     }
 }
